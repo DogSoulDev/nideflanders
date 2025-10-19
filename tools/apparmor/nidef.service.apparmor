@@ -1,0 +1,12 @@
+# Minimal AppArmor profile for NiDeFlanders service
+# Place this at /etc/apparmor.d/usr.bin.nidef and adjust paths as needed
+profile usr.bin.nidef flags=(attach_disconnected) {
+  # allow read-only access to code
+  /usr/bin/python3 r,
+  /home/*/nideflanders/** r,
+  # allow runtime write only to /var/lib/nidef
+  /var/lib/nidef/** rw,
+  # network access for tor/proxy
+  network,
+  capability net_bind_service,
+}

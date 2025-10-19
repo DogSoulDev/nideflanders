@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Post-removal cleanup for nideflanders
+if [ "$1" = "purge" ]; then
+  # remove installed files (best-effort)
+  rm -rf /opt/nideflanders || true
+  rm -f /usr/local/bin/nideflanders || true
+  rm -rf /var/lib/nideflanders || true
+fi
+
+exit 0

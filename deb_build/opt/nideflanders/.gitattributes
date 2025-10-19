@@ -1,0 +1,5 @@
+packaging/debian/* text eol=lf
+packaging/debian/*.sh linguist-language=Shell
+packaging/systemd/* text eol=lf
+tools/*.sh text eol=lf
+*.py text eol=lf

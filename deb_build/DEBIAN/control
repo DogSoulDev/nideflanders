@@ -1,0 +1,10 @@
+Package: nideflanders
+Version: 0.1
+Section: net
+Priority: optional
+Architecture: all
+Depends: python3, python3-venv, python3-gi, adduser
+Recommends: tor, privoxy
+Maintainer: DogSoulDev <noreply@example.com>
+Description: NiDeFlanders - simple Tor-based VPN wrapper for Kali
+ NiDeFlanders installs under /opt/nideflanders and provides /usr/local/bin/nideflanders

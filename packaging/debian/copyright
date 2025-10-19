@@ -1,0 +1,9 @@
+Format: http://standard.example.org/
+Upstream-Name: nideflanders
+Source: https://github.com/DogSoulDev/nideflanders
+
+Files: *
+Copyright: 2025 DogSoulDev
+License: GPL-3.0-or-later
+
+Comment: This package contains scripts and Python code to run NiDeFlanders. See README.md for details.

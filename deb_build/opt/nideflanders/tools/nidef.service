@@ -1,0 +1,12 @@
+[Unit]
+Description=NiDeFlanders periodic rotator
+After=network.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/opt/nideflanders
+ExecStart=/opt/nideflanders/tools/nidef.py change-country --country US
+
+[Install]
+WantedBy=multi-user.target

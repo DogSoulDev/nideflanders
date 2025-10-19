@@ -1,0 +1,10 @@
+{
+  "typeCheckingMode": "basic",
+  "reportMissingTypeStubs": false,
+  "reportMissingImports": false,
+  "exclude": [
+    "**/.github/**",
+    "**/docs/**",
+    "**/assets/**"
+  ]
+}

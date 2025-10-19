@@ -1,0 +1,36 @@
+# Plantilla de nodos confiables (Tor relays, bridges, y proveedores VPN OSS)
+#
+# Uso: este archivo es una plantilla que puede ser llenada manualmente o por un
+# script de actualización. Cada entrada debe venir de una fuente verificada.
+
+tor_relays:
+  # Ejemplo de entrada de relay (obtenible desde metrics.torproject.org)
+  - nickname: "sample-relay"
+    fingerprint: "9695DFC3..."
+    ip: "198.51.100.23"
+    country: "US"
+    flags: ["Guard","Fast","Stable"]
+    source: "https://metrics.torproject.org/rs.html"
+
+bridges:
+  # Las líneas de bridges normalmente son privadas; aquí sólo ejemplo.
+  - type: "obfs4"
+    line: "obfs4 203.0.113.1:443 0123456789ABCDEF cert=... iat-mode=0"
+    source: "https://bridges.torproject.org/"
+
+vpn_providers:
+  # Lista corta de proveedores VPN OSS o endpoints públicos que declaran ser
+  # open-source. NO es una lista de confianza por defecto: requiere verificación.
+  - name: "example-oss-vpn"
+    homepage: "https://example.org/oss-vpn"
+    country: "NL"
+    notes: "Proyecto open-source; verificar auditorías y configuración antes de usar."
+
+metadata:
+  last_updated: ""
+  updater: "manual"
+  notes: |
+    * Rellena `last_updated` y `updater` cuando un script/operación modifique
+      este archivo.
+    * Si añades entradas automáticamente, almacena la URL fuente y la huella
+      (por ejemplo fingerprint o checksum) para permitir auditorías.

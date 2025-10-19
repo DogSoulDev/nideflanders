@@ -1,0 +1,13 @@
+requests>=2.28.0
+PySocks>=1.7.1
+pygobject>=3.42.0
+pytest>=7.0.0
+mypy>=0.991
+types-requests
+requests
+pysocks
+pygobject
+types-requests
+pytest
+pytest-mock
+pyright

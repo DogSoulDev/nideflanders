@@ -1,0 +1,12 @@
+# Minimal AppArmor profile template for NiDeFlanders (needs tuning per system)
+# Deny net raw sockets and limit file writes
+profile nideflanders flags=(attach_disconnected) {
+  # include abstractions
+  # basic operations
+  /usr/bin/python3 mr,
+  /usr/bin/** r,
+  /etc/** r,
+  /home/** rwk,
+  /tmp/** rw,
+  network,
+}

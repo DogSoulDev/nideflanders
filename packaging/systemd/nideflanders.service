@@ -1,0 +1,15 @@
+[Unit]
+Description=NiDeFlanders Tor-based VPN wrapper
+After=network.target
+
+[Service]
+Type=simple
+User=nidef
+Group=nidef
+WorkingDirectory=/opt/nideflanders
+Environment=XDG_DATA_HOME=/var/lib/nideflanders
+ExecStart=/usr/local/bin/nideflanders
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
