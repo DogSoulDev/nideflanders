@@ -12,15 +12,33 @@ Proyecto universitario para la privacidad y anonimato en Kali Linux.
 VPN para Kali Linux orientada a máxima privacidad y anonimato. Arquitectura hexagonal, principios SOLID, DRY, KISS y Clean Code.
 
 
-## Instalación y ejecución automática
+## Instalación y ejecución correcta
 1. Descarga el repositorio desde GitHub.
-2. Da permisos de ejecución al script:
+2. Crea y activa un entorno virtual (recomendado):
+	```bash
+	python3 -m venv .venv
+	source .venv/bin/activate
+	```
+3. Instala las dependencias de Python:
+	```bash
+	pip install -r requirements.txt
+	```
+4. Instala dependencias del sistema (Kali Linux):
+	```bash
+	sudo apt update
+	sudo apt install tor privoxy python3-gi gir1.2-gtk-3.0
+	```
+5. Da permisos de ejecución al script:
 	```bash
 	chmod +x run_nideflanders.sh
 	```
-3. Ejecuta el script:
+6. Ejecuta el script para iniciar la app:
 	```bash
 	./run_nideflanders.sh
+	```
+	O ejecuta manualmente la interfaz:
+	```bash
+	python3 -m interface.main_window
 	```
 	Esto instalará dependencias y abrirá la interfaz gráfica automáticamente.
 
@@ -34,7 +52,6 @@ VPN para Kali Linux orientada a máxima privacidad y anonimato. Arquitectura hex
 - Código seguro y verificado (2025)
 
 ## Estructura del proyecto
-- `domain/`: Lógica de negocio y entidades
 - `application/`: Casos de uso y servicios
 - `infrastructure/`: Integraciones externas (TOR, Privoxy, VPN, bridges)
 - `interface/`: Interfaz gráfica y CLI
