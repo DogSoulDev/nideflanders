@@ -74,4 +74,13 @@ Todas las dependencias serán verificadas para evitar vulnerabilidades conocidas
 GNU GPL v3
 
 ---
+
+---
+
+## Documentación adicional
+
+- [Guía de uso](NiDeFlanders/USO.md)
+- [Arquitectura del proyecto](NiDeFlanders/ARQUITECTURA.md)
+
+---
 DogSoulDev
