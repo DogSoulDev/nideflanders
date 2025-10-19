@@ -2,6 +2,9 @@
 Servicio principal de la VPN: orquesta la activación/desactivación, cambio de país/IP y protección de privacidad.
 Cumple arquitectura hexagonal y clean code.
 """
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from infrastructure.tor_manager import TorManager
 from infrastructure.privoxy_manager import PrivoxyManager
 

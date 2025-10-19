@@ -2,6 +2,9 @@
 Selector de país/IP usando la red TOR y nodos VPN open source.
 Permite enrutar el tráfico por el país elegido, combinando TOR y nodos VPN.
 """
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from infrastructure.vpn_nodes import VPNNodeManager
 from infrastructure.tor_manager import TorManager
 

@@ -29,6 +29,5 @@ class TorConfigurator:
             "Log notice stdout",
             "SafeLogging 1",
             "CookieAuthentication 1",
-
-            """
-            "ClientUseIPv6 0",
+            "ClientUseIPv6 0"
+        ]

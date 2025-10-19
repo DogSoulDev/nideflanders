@@ -1,28 +1,12 @@
-from infrastructure.privacy_guard import PrivacyGuard
-from infrastructure.tor_configurator import TorConfigurator
-"""
-Ventana principal de NiDeFlanders (GUI) usando PyGObject/GTK.
-Sencilla, anclada en la barra de Kali Linux, con botones para activar/desactivar VPN, cambiar país/IP, y mostrar estado.
-"""
-import gi
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
 
-"""
-Ventana principal de NiDeFlanders (GUI) usando PyGObject/GTK.
-Sencilla, anclada en la barra de Kali Linux, con botones para activar/desactivar VPN, cambiar país/IP, y mostrar estado.
-"""
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from infrastructure.privacy_guard import PrivacyGuard
 from infrastructure.tor_configurator import TorConfigurator
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
-
-
-from application.vpn_service import VPNService
-from application.tor_country_selector import TorCountrySelector
-
-
 from application.vpn_service import VPNService
 from application.tor_country_selector import TorCountrySelector
 
