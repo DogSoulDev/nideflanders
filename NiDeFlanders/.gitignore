@@ -1,0 +1,17 @@
+# Archivos y carpetas a ignorar por Git
+.vscode/
+.mypy_cache/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+*.sqlite3
+.env
+.DS_Store
+.idea/
+*.swp
+*.bak
+*.tmp
+# No subir dependencias del sistema ni archivos temporales
+privoxy/
+tor/
