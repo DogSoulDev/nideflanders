@@ -11,13 +11,18 @@ Proyecto universitario para la privacidad y anonimato en Kali Linux.
 
 VPN para Kali Linux orientada a máxima privacidad y anonimato. Arquitectura hexagonal, principios SOLID, DRY, KISS y Clean Code.
 
+
 ## Instalación y ejecución automática
 1. Descarga el repositorio desde GitHub.
-2. Ejecuta en terminal:
-	 ```bash
-	 bash run_nideflanders.sh
-	 ```
-	 Esto instalará dependencias y abrirá la interfaz gráfica automáticamente.
+2. Da permisos de ejecución al script:
+	```bash
+	chmod +x run_nideflanders.sh
+	```
+3. Ejecuta el script:
+	```bash
+	./run_nideflanders.sh
+	```
+	Esto instalará dependencias y abrirá la interfaz gráfica automáticamente.
 
 ## Características principales
 - Solo para Kali Linux (no Windows)
