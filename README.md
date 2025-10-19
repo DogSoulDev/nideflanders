@@ -6,9 +6,10 @@ Proyecto universitario para la privacidad y anonimato en Kali Linux.
 	<img src="NiDeFlanders/assets/nideflanders.png" alt="NiDeFlanders" width="220" />
 </div>
 
+
 # NiDeFlanders
 
-VPN para Kali Linux orientada a máxima privacidad y anonimato. Proyecto universitario, arquitectura hexagonal, principios SOLID, DRY, KISS y Clean Code.
+VPN para Kali Linux orientada a máxima privacidad y anonimato. Arquitectura hexagonal, principios SOLID, DRY, KISS y Clean Code.
 
 ## Instalación y ejecución automática
 1. Descarga el repositorio desde GitHub.
@@ -55,6 +56,7 @@ GNU GPL v3
 - [Guía de uso](NiDeFlanders/USO.md)
 - [Arquitectura del proyecto](NiDeFlanders/ARQUITECTURA.md)
 
+
 ---
-DogSoulDev
+Web del autor: [https://dogsouldev.github.io/Web/](https://dogsouldev.github.io/Web/)
 - interface/: Interfaz gráfica y CLI
