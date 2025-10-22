@@ -18,6 +18,8 @@ source .venv/bin/activate
 python run.py           # inicia la GUI (o usa CLI: python run.py activate)
 ```
 
+> **Nota:** No es necesario dar permisos manualmente con `chmod` a los scripts. Los instaladores gestionan automáticamente los permisos de ejecución en Kali/Debian.
+
 ## Instalación completa (Kali, requiere sudo)
 
 ```bash
