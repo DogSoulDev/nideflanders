@@ -10,13 +10,25 @@ NiDeFlanders es un wrapper minimalista para Tor + Privoxy, pensado para usuarios
 
 ## Instalación rápida (modo usuario, sin sudo)
 
+
 ```bash
+# 1. Clona el repositorio
 git clone https://github.com/DogSoulDev/nideflanders.git
 cd nideflanders
-bash tools/install.sh   # crea el entorno virtual y las dependencias
+
+# 2. Ejecuta el instalador (gestiona dependencias y permisos automáticamente)
+bash tools/install.sh
+
+# 3. Activa el entorno virtual
 source .venv/bin/activate
-python run.py           # inicia la GUI (o usa CLI: python run.py activate)
+
+# 4. Inicia la aplicación (GUI o CLI)
+python run.py           # inicia la GUI
+# o para CLI:
+python run.py activate  # activa el servicio vía CLI
 ```
+
+> **Nota:** No es necesario usar `chmod` manualmente. Los scripts de instalación gestionan los permisos automáticamente en Kali/Debian.
 
 > **Nota:** No es necesario dar permisos manualmente con `chmod` a los scripts. Los instaladores gestionan automáticamente los permisos de ejecución en Kali/Debian.
 
