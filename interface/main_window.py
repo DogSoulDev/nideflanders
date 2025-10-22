@@ -1,11 +1,11 @@
-# type: ignore
+ # type: ignore
 """Interfaz mínima GTK para Kali: ventana pequeña con 2 botones."""
 try:
     import gi  # type: ignore
     gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk  # type: ignore
     GUI_AVAILABLE = True
-except (ImportError, ModuleNotFoundError):
+except (ImportError, ModuleNotFoundError, AttributeError):
     GUI_AVAILABLE = False
     # rely on typings/gi.pyi for static resolution when GTK is not installed
 
@@ -19,6 +19,14 @@ class MainWindow:
         self.vpn = VPNService()
         self.win = Gtk.Window(title='NiDeFlanders')
         self.win.set_default_size(300, 120)
+    # Integra el icono si existe
+        import os
+        icon_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'assets', 'nideflanders.png')
+        if os.path.isfile(icon_path):
+            try:
+                self.win.set_icon_from_file(icon_path)
+            except Exception:
+                pass
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.win.add(vbox)
 
@@ -33,7 +41,7 @@ class MainWindow:
         self.country_btn.connect('clicked', self.on_change)
         vbox.pack_start(self.country_btn, True, True, 0)
 
-        # ComboBox para selección rápida de país (automatizable)
+    # ComboBox para selección rápida de país (automatizable)
         countries = ['Random', 'US', 'NL', 'DE', 'FR', 'ES', 'BR']
         store = Gtk.ListStore(str)
         for c in countries:
@@ -45,7 +53,7 @@ class MainWindow:
         self.country_combo.set_active(0)
         vbox.pack_start(self.country_combo, True, True, 0)
 
-        # minimal UI: only status, toggle and country selector
+    # Interfaz mínima: solo estado, botón de activar/desactivar y selector de país
 
     def on_toggle(self, _):
         if not self.vpn.is_active():
@@ -64,7 +72,7 @@ class MainWindow:
                 self.status_label.set_text('Error al desconectar')
 
     def on_change(self, _):
-        # Dialog para pedir país
+    # Diálogo para pedir país
         dialog = Gtk.MessageDialog(transient_for=self.win, flags=0, message_type=Gtk.MessageType.QUESTION, buttons=Gtk.ButtonsType.OK_CANCEL, text='Introduce país')
         entry = Gtk.Entry()
         dialog.vbox.pack_end(entry, False, False, 0)
@@ -78,22 +86,22 @@ class MainWindow:
         dialog.destroy()
 
     def on_autostart(self, _):
-        # deprecated in minimal UI
+    # obsoleto en la interfaz mínima
         pass
 
     def on_menu_status(self, _):
-        # comprobar si tor está en PATH
+    # Comprueba si tor está en PATH
         import shutil
         tor = shutil.which('tor')
         self.status_label.set_text('tor en PATH: ' + (tor or 'no'))
 
     def on_menu_autostart(self, _):
-        # no-op for minimal UI
+    # no-op para la interfaz mínima
         pass
 
     def on_button_press(self, _widget, _event):
-        # botón derecho muestra menu contextual
-        # no contextual menu in minimal UI
+    # botón derecho muestra menú contextual
+    # no hay menú contextual en la interfaz mínima
         return
 
 

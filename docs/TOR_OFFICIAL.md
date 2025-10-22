@@ -1,3 +1,31 @@
+# Tor — Notas oficiales de uso
+==========================
+
+Este documento resume las recomendaciones oficiales del Proyecto Tor para usar Tor de forma segura y correcta.
+## 1) Usa el Tor Browser siempre que sea posible
+
+- El Tor Browser es la única forma oficialmente soportada para navegar por la web usando Tor.
+## 2) Evita usar Tor a nivel de sistema para navegar por la web
+
+- Tor instalado a nivel de sistema (por ejemplo, mediante `apt install tor`) no se recomienda para navegación web, ya que carece de las protecciones de privacidad del Tor Browser.
+## 3) Usa Tor a nivel de sistema para aplicaciones que no sean web
+
+- Tor a nivel de sistema es adecuado para herramientas de línea de comandos, scripts y otras aplicaciones que soportan proxies SOCKS5.
+## 4) Nunca uses Tor para BitTorrent u otras aplicaciones P2P
+
+- Tor no está diseñado para tráfico de alto ancho de banda o P2P y puede exponer tu dirección IP.
+## 5) No uses Tor para actividades ilegales
+
+- El Proyecto Tor no aprueba el uso ilegal y no te protegerá de la ley.
+## 6) Mantén Tor y el software relacionado actualizado
+
+- Actualiza regularmente Tor, el Tor Browser y Privoxy para tener los últimos parches de seguridad.
+## 7) Lee la documentación oficial
+
+- https://support.torproject.org/
+- https://2019.www.torproject.org/docs/documentation.html.en
+---
+Este documento es un resumen para usuarios de NiDeFlanders. Para más detalles, consulta siempre la documentación oficial del Proyecto Tor.
 # Referencias oficiales y recomendaciones del Proyecto Tor
 
 Este documento reúne notas y enlaces oficiales del Proyecto Tor (Tor Project) para

@@ -16,7 +16,7 @@ class TorController:
         self.socks_host = '127.0.0.1'
 
     def test_connection(self) -> bool:
-        # Test the SOCKS port (Tor proxy) to ensure Tor is proxying traffic
+    # Prueba el puerto SOCKS (proxy Tor) para asegurar que Tor está reenviando el tráfico
         try:
             with socket.create_connection((self.socks_host, self.socks_port), timeout=1):
                 return True
@@ -24,21 +24,21 @@ class TorController:
             return False
 
     def change_ip(self, country: str | None = None) -> bool:
-        """Request Tor to build new circuits. Optionally set ExitNodes country (ISO 2-letter).
+    """Solicita a Tor construir nuevos circuitos. Opcionalmente fija el país de salida (código ISO 2 letras).
 
-        Requires Tor with ControlPort enabled. Uses stem.Controller to authenticate and send
-        SETCONF / SIGNAL NEWNYM commands.
-        """
+    Requiere Tor con ControlPort habilitado. Usa stem.Controller para autenticar y enviar
+    comandos SETCONF / SIGNAL NEWNYM.
+    """
         if not _STEM:
             return False
         try:
             # type: ignore[arg-type]
             with Controller.from_port(port=self.control_port) as c:  # type: ignore[arg-type]
-                # try to authenticate using available methods (cookie/password)
+                # intenta autenticar usando los métodos disponibles (cookie/contraseña)
                 try:
                     c.authenticate()  # type: ignore[attr-defined]
                 except (OSError, RuntimeError):
-                    # authentication may fail if Tor control is not configured; return False
+                    # la autenticación puede fallar si el control de Tor no está configurado; retorna False
                     return False
 
                 if country:
@@ -54,7 +54,7 @@ class TorController:
                     return False
             return True
         except (OSError, RuntimeError) as _:
-            # Unexpected runtime error while controlling Tor
+            # Error inesperado en tiempo de ejecución al controlar Tor
             return False
 
 

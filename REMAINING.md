@@ -1,14 +1,14 @@
-# Remaining work and prioritized plan
+# Trabajo pendiente y plan priorizado
 
-1) CI and tests (high)
-   - GitHub Actions workflow added (mocked tests + linting)
-2) Hardening (high)
-   - AppArmor/SELinux, non-root execution, systemd units with least privilege
-3) Leak testing (medium)
-   - Automated leak tests and integration tests on a Kali VM
-4) Packaging (medium)
-   - Debian package, installation scripts, systemd unit creation
-5) UX and documentation (low)
-   - Better GUI feedback, documentation for bridges and hidden services
+1) CI y pruebas (alto)
+   - Flujo de trabajo de GitHub Actions añadido (tests simulados + linting)
+2) Fortalecimiento (alto)
+   - AppArmor/SELinux, ejecución sin root, unidades systemd con privilegios mínimos
+3) Pruebas de fugas (medio)
+   - Pruebas automáticas de fugas e integración en una VM Kali
+4) Empaquetado (medio)
+   - Paquete Debian, scripts de instalación, creación de unidad systemd
+5) Experiencia de usuario y documentación (bajo)
+   - Mejor feedback en la GUI, documentación para bridges y servicios ocultos
 
-If you want I can start implementing any of these in order; por ejemplo puedo empezar con las pruebas de fuga o con la creación de paquetes .deb.
+Si lo deseas puedo empezar a implementar cualquiera de estas tareas en orden; por ejemplo puedo comenzar con las pruebas de fugas o con la creación de paquetes .deb.

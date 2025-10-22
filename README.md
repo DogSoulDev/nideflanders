@@ -1,117 +1,104 @@
-````markdown
- # NiDeFlanders — Quick Start
 
-NiDeFlanders - a minimal Tor + Privoxy wrapper intended for Kali users.
+# NiDeFlanders — Inicio rápido
 
-Goals:
-- Run in userland by default (no sudo required).
-- Optionally install system-wide using `--auto`/system installer.
-- Very small GUI: activate/deactivate + change country.
+NiDeFlanders es un wrapper minimalista para Tor + Privoxy, pensado para usuarios de Kali Linux.
 
-Quick start (user mode, no sudo):
+## Objetivos
+- Ejecutarse en modo usuario por defecto (sin requerir sudo).
+- Opcionalmente instalarse a nivel sistema usando `--auto` o el instalador.
+- GUI muy sencilla: activar/desactivar y cambiar país.
+
+## Instalación rápida (modo usuario, sin sudo)
 
 ```bash
 git clone https://github.com/DogSoulDev/nideflanders.git
 cd nideflanders
-bash tools/install.sh   # crea .venv e instala dependencias
+bash tools/install.sh   # crea el entorno virtual y las dependencias
 source .venv/bin/activate
-python run.py           # arranca GUI (o usa CLI: python run.py activate)
+python run.py           # inicia la GUI (o usa CLI: python run.py activate)
 ```
 
-One-line E2E installer & test (Kali - requires sudo to apt install):
+## Instalación completa (Kali, requiere sudo)
 
 ```bash
-# As normal user, but allow the script to sudo when needed
+sudo bash tools/install_full.sh
+```
+
+## Instalador E2E y prueba automática (Kali)
+
+```bash
 sudo bash tools/run_e2e_kali.sh --auto
 ```
 
-Notes:
-- Default behavior tries to avoid requiring root: if no system `tor` is found, the app will attempt
-  to start a userland Tor bundle via `tools/bootstrap_user_tor.py`.
-- `tools/run_e2e_kali.sh` collects artifacts under `artifacts/e2e-<timestamp>/` (app logs and leak-test logs).
-- To run leak-tests manually in the activated venv:
+## Notas
+- El comportamiento por defecto evita requerir root: si no se encuentra `tor` en el sistema, la aplicación intentará descargar y ejecutar Tor en modo usuario usando `tools/bootstrap_user_tor.py`.
+- `tools/run_e2e_kali.sh` guarda los logs y resultados en `artifacts/e2e-<timestamp>/`.
+- Para ejecutar pruebas de fuga manualmente en el entorno virtual activado:
 
 ```bash
 export TOR_SOCKS5=socks5://127.0.0.1:9050
 python tools/leak_test.py
 ```
 
-Development:
-- Create a venv and install dev requirements: `python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements-dev.txt`
-- Run unit tests: `pytest -q`
- - Run static checks (pyright):
-   ```bash
-   source .venv/bin/activate
-   bash tools/run_pyright.sh
-   ```
+## Desarrollo
 
-Licencia: GPL v3
+- Crear entorno virtual e instalar dependencias de desarrollo:
+  ```bash
+  python3 -m venv .venv
+  source .venv/bin/activate
+  pip install -r requirements-dev.txt
+  ```
+- Ejecutar pruebas unitarias:
+  ```bash
+  pytest -q
+  ```
+- Ejecutar análisis estático:
+  ```bash
+  source .venv/bin/activate
+  bash tools/run_pyright.sh
+  ```
 
-One-liner (full, system-wide install on Kali as root):
-
-```bash
-sudo bash tools/install_full.sh
-```
-
-One-liner (user-level, no sudo):
-
-```bash
-bash tools/install.sh && source .venv/bin/activate && python run.py
-```
-
-Building a .deb for Kali (on a Debian/Kali host):
+## Empaquetado .deb para Kali/Debian
 
 ```bash
-# Ensure you have fakeroot and dpkg-deb installed
 sudo apt update && sudo apt install -y fakeroot dpkg-dev
 bash tools/build_deb.sh
-# Install the generated package
 sudo dpkg -i nideflanders_0.1_all.deb
 ```
 
-What the package does on installation:
-- Copies the repository to `/opt/nideflanders`.
-- Creates a Python venv in `/opt/nideflanders/.venv` and installs `requirements-dev.txt` (if present) during postinst.
-- Installs a wrapper at `/usr/local/bin/nideflanders` that activates the venv and launches the GUI.
-- If present, installs the systemd unit `packaging/systemd/nideflanders.service` and enables it.
+### ¿Qué hace el paquete al instalarse?
+- Copia el repositorio a `/opt/nideflanders`.
+- Crea un entorno virtual en `/opt/nideflanders/.venv` e instala las dependencias.
+- Instala un wrapper en `/usr/local/bin/nideflanders` que activa el entorno y lanza la GUI.
+- Si existe, instala y habilita la unidad systemd `packaging/systemd/nideflanders.service`.
 
+---
 
-````
- # NiDeFlanders — Quick Start
+## Personalización avanzada
 
- Objetivo: que el usuario solo tenga que clonar, instalar y ejecutar.
+### Configuración de nodos y bridges
+El archivo `config/nodes.yml` permite definir relays Tor, bridges y proveedores VPN open-source personalizados. Puedes editarlo manualmente o usar el script `tools/fetch_tor_relays.py` para actualizar la lista automáticamente desde fuentes oficiales.
 
- Requisitos mínimos (Kali recomendado):
- - Python 3.10+ (python3)
- - Opcional: tor y privoxy si quieres integración del sistema; por defecto el proyecto usa userland Tor.
-
- Pasos rápidos (3 comandos):
-
- ```bash
- git clone https://github.com/DogSoulDev/nideflanders.git
- cd nideflanders
- bash tools/install.sh   # crea .venv e instala dependencias
- source .venv/bin/activate
- python run.py           # arranca GUI (o usa CLI: python run.py activate)
- ```
-
- Cómo funciona (explicación corta):
- - Si `tor` no está instalado, la aplicación intenta arrancar Tor en modo userland (descarga/extrae y ejecuta localmente).
- - Privoxy se configura para enrutar HTTP(S) a través de Tor.
- - GUI mínima: botón "Activar VPN" / "Desactivar VPN" y opción para cambiar país.
-
- Si quieres que implemente integración avanzada (systemd, package, o instalador para Kali), dime y la añadimos.
-
- Licencia: GPL v3
-
-One-liner (full, system-wide install on Kali as root):
-
-```bash
-sudo bash tools/install_full.sh
+Ejemplo de entrada:
+```yaml
+tor_relays:
+  - nickname: "ejemplo-relay"
+    fingerprint: "9695DFC3..."
+    ip: "198.51.100.23"
+    country: "US"
+    flags: ["Guard","Fast","Stable"]
+    source: "https://metrics.torproject.org/rs.html"
 ```
 
-One-liner (user-level, no sudo):
+### Icono personalizado
+Puedes personalizar el icono de la ventana principal de la GUI colocando una imagen PNG en `assets/nideflanders.png`. Si el archivo existe, se usará automáticamente como icono.
 
-```bash
-bash tools/install.sh && source .venv/bin/activate && python run.py
-```
+### Integración de assets
+La carpeta `assets/` puede usarse para añadir imágenes, logotipos o recursos adicionales para la interfaz gráfica o documentación.
+
+### Scripts útiles
+- `tools/fetch_tor_relays.py`: actualiza automáticamente la lista de relays en `config/nodes.yml`.
+- `tools/leak_test.py`: ejecuta pruebas de fuga de IP/DNS usando Tor/Privoxy.
+- `tools/check_imports.py`: verifica que los módulos principales se pueden importar correctamente.
+
+¿Quieres más ejemplos o integración avanzada? Dímelo y lo añado.

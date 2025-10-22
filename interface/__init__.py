@@ -1,1 +1,1 @@
-"""Interface layer: GUI and CLI."""
+"""Capa de interfaz: GUI y CLI."""

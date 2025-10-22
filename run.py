@@ -8,10 +8,20 @@ from typing import List
 logger = logging.getLogger('nideflanders.cli')
 logger.addHandler(logging.NullHandler())
 
+
+# Comprobación de dependencias para la GUI
 try:
+    import gi  # type: ignore
+    try:
+        from gi import require_version  # type: ignore
+        require_version('Gtk', '3.0')
+    except Exception:
+        pass  # Si falla, continuar sin interrumpir
+    from gi.repository import Gtk  # type: ignore
     from interface.main_window import main as gui_main  # type: ignore
     GUI_OK = True
-except (ImportError, ModuleNotFoundError):  # pragma: no cover - gui optional
+except (ImportError, ModuleNotFoundError):
+    print("[NiDeFlanders] Dependencia faltante: PyGObject (gi) o GTK. Instala 'python3-gi' y 'gir1.2-gtk-3.0' usando apt en Debian/Kali.")
     GUI_OK = False
 
 from application.vpn_service import VPNService

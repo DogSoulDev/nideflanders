@@ -7,7 +7,7 @@ from typing import Optional
 
 class PrivoxyController:
     def __init__(self, config_path: str = '/etc/privoxy/config') -> None:
-        # Allow a user-local config in XDG_DATA_HOME for zero-permissions mode
+    # Permite una configuración local del usuario en XDG_DATA_HOME para modo sin permisos
         xdg = os.environ.get('XDG_DATA_HOME') or os.path.expanduser('~/.local/share')
         user_conf_dir = os.path.join(xdg, 'nidef', 'privoxy')
         user_conf = os.path.join(user_conf_dir, 'config')
@@ -18,44 +18,44 @@ class PrivoxyController:
     def ensure_forward(self, socks_host: str, socks_port: int) -> bool:
         """Asegura que la línea forward-socks5t esté presente en la configuración.
 
-        Intenta escribir directamente y si falla usa sudo + tee como fallback.
+        Intenta escribir directamente y si falla usa sudo + tee como alternativa.
         """
         cfg = f"forward-socks5t / {socks_host}:{socks_port} .\n"
         try:
-            # Prefer user-local config if system config not writable
+            # Prefiere la configuración local del usuario si la del sistema no es escribible
             target_conf = self.config_path
             try:
-                # If system config exists and is writable and contains forward, we're done
+                # Si la configuración del sistema existe, es escribible y contiene forward, ya está listo
                 if os.path.exists(self.config_path):
                     with open(self.config_path, 'r', encoding='utf-8') as f:
                         if 'forward-socks5' in f.read():
                             return True
-                    # test writability
+                    # prueba si es escribible
                     with open(self.config_path, 'a', encoding='utf-8'):
                         pass
                 else:
-                    # if parent writable
+                    # si el directorio padre es escribible
                     parent = os.path.dirname(self.config_path)
                     if os.access(parent or '/', os.W_OK):
                         target_conf = self.config_path
                     else:
                         target_conf = self.user_conf
 
-                # ensure parent exists
+                # asegura que el directorio padre exista
                 os.makedirs(os.path.dirname(target_conf), exist_ok=True)
-                # If target_conf already contains forward, nothing to do
+                # Si target_conf ya contiene forward, no hay nada que hacer
                 if os.path.exists(target_conf):
                     with open(target_conf, 'r', encoding='utf-8') as f:
                         if 'forward-socks5' in f.read():
                             return True
-                # write minimal config header and forward rule
+                # escribe cabecera mínima de configuración y regla forward
                 with open(target_conf, 'a', encoding='utf-8') as f:
                     f.write('\n# NiDeFlanders auto-config\n')
                     f.write('listen-address  127.0.0.1:8118\n')
                     f.write(cfg)
                 return True
             except (OSError, IOError):
-                # fallback: attempt sudo append (best-effort)
+                # alternativa: intenta añadir con sudo (mejor esfuerzo)
                 try:
                     cmd = ("printf '%s' " + repr('\n# NiDeFlanders auto-config\nlisten-address 127.0.0.1:8118\n' + cfg) + f" | sudo tee -a {self.config_path} > /dev/null")
                     subprocess.run(['bash', '-lc', cmd], check=True)
@@ -77,7 +77,7 @@ class PrivoxyController:
         binp: Optional[str] = shutil.which('privoxy')
         if binp:
             try:
-                # Prefer system config_path if exists, otherwise use user-local config
+                # Prefiere config_path del sistema si existe, si no usa la configuración local del usuario
                 conf = self.config_path if os.path.exists(self.config_path) else self.user_conf
                 os.makedirs(os.path.dirname(conf), exist_ok=True)
                 subprocess.Popen([binp, conf, '--no-daemon'])

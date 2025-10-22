@@ -1,18 +1,43 @@
-# SECURITY
 
-This project targets maximal anonymity and minimal traces when run on Kali Linux.
+# Notas de seguridad
 
-Key recommendations:
+Este documento resume los aspectos relacionados con la seguridad de NiDeFlanders.
 
-- Always run in an isolated VM or dedicated host.
-- Do not run the GUI or services as root; use appropriate user accounts (e.g., debian-tor for Tor).
-- Enable `CookieAuthentication 1` and `ControlPort 9051` in `/etc/tor/torrc` and secure the control cookie.
-- Use virtualenv `.venv` and never install dependencies system-wide unless necessary.
-- Avoid writing logs by default; if needed, write encrypted logs with strict permissions.
-- Consider AppArmor/SELinux profiles and containerization for extra isolation.
+## AppArmor
 
-Audits and leak tests:
+Se proporcionan perfiles de AppArmor en `packaging/apparmor/` y `tools/apparmor/`.
 
-- Periodically run DNS/IP leak tests and WebRTC leak checks.
-- Monitor Tor consensus and guard node behavior.
+## Systemd
+
+El archivo de unidad systemd se encuentra en `packaging/systemd/nideflanders.service`.
+
+## Empaquetado Debian
+
+Los archivos de empaquetado Debian están en `packaging/debian/` y `deb_build/`.
+
+## Prueba de fugas
+
+El script de prueba de fugas (`tools/leak_test.py`) verifica fugas de DNS e IP al usar Tor.
+
+## Privoxy
+
+Privoxy se utiliza para filtrar y anonimizar el tráfico HTTP.
+
+## Tor
+
+Tor se utiliza para anonimizar el tráfico de red.
+
+## PyGObject
+
+PyGObject se usa para la interfaz GTK.
+
+## Recomendaciones
+
+- Verifica siempre la integridad de los binarios descargados (usa SHA256).
+- Utiliza AppArmor y systemd para reforzar la seguridad.
+- Ejecuta pruebas de fugas regularmente.
+- Mantén todas las dependencias actualizadas.
+
+---
+Este documento es un resumen para usuarios de NiDeFlanders. Para más detalles, consulta la documentación oficial de cada tecnología.
 

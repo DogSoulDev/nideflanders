@@ -5,8 +5,8 @@ import logging
 from infrastructure import TorController
 from infrastructure.privoxy_controller import PrivoxyController
 
-# secure logger: by default do not emit logs (NullHandler). Projects that want logs
-# can configure logging explicitly (file/handler) but avoid recording sensitive data.
+ # Logger seguro: por defecto no emite logs (NullHandler). Los proyectos que deseen logs
+ # pueden configurarlo explícitamente (archivo/handler), pero se recomienda evitar registrar datos sensibles.
 logger = logging.getLogger('nideflanders')
 logger.addHandler(logging.NullHandler())
 
@@ -19,10 +19,10 @@ class VPNService:
         self.selected_country: Optional[str] = None
 
     def activate(self) -> bool:
-        """Activa el reenvío por Tor + arranca Privoxy. Requiere Tor y Privoxy instalados en Kali."""
+        """Activa el reenvío por Tor y arranca Privoxy. Requiere Tor y Privoxy instalados en Kali."""
         if not self.tor.test_connection():
             logger.debug('tor.test_connection failed, intentando bootstrap userland')
-            # try to bootstrap tor in userland (no sudo) using the provided script
+            # intenta arrancar Tor en modo usuario (sin sudo) usando el script proporcionado
             try:
                 import subprocess
                 import sys
@@ -37,7 +37,7 @@ class VPNService:
                     return False
                 subprocess.run([sys.executable, bootstrap], check=True)
 
-                # wait for socks port to become available (best-effort)
+                # espera a que el puerto socks esté disponible (mejor esfuerzo)
                 waited = 0
                 timeout = 30
                 while waited < timeout:
@@ -51,7 +51,7 @@ class VPNService:
             except (subprocess.CalledProcessError, FileNotFoundError, OSError):
                 logger.debug('userland bootstrap failed')
                 return False
-            # recheck connection
+            # vuelve a comprobar la conexión
             if not self.tor.test_connection():
                 logger.debug('tor still not available after bootstrap')
                 return False

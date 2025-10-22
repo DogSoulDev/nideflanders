@@ -1,13 +1,14 @@
-NiDeFlanders — Quick start (userland Tor / easy Kali)
+
+# NiDeFlanders — Guía rápida (modo usuario y Kali)
 ===============================================
 
-Este documento muestra los pasos más sencillos para dejar NiDeFlanders funcionando en Kali.
+Este documento muestra los pasos más sencillos para dejar NiDeFlanders funcionando en Kali Linux.
 
-Resumen de modos
-- Userland Tor (sin sudo): arranca Tor como proceso del usuario, sin instalar paquetes del sistema.
-- Modo --auto (recomendado para un usuario que acepta un único sudo): instala Tor/Privoxy y crea una unidad systemd.
+## Modos de uso
+- **Userland Tor (sin sudo):** Arranca Tor como proceso del usuario, sin instalar paquetes del sistema.
+- **Modo --auto (recomendado para usuarios que aceptan un único sudo):** Instala Tor/Privoxy y crea una unidad systemd.
 
-1) Preparar entorno Python (aplicable a ambos modos)
+### 1) Preparar entorno Python (aplicable a ambos modos)
 
 ```bash
 python3 -m venv .venv
@@ -16,54 +17,55 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-2) Userland Tor (sin sudo)
+### 2) Userland Tor (sin sudo)
 
-- Inicia Tor descargando el Tor Browser bundle si no existe y arrancándolo como proceso del usuario.
+Inicia Tor descargando el Tor Browser Bundle si no existe y arrancándolo como proceso del usuario.
 
 ```bash
-# iniciar Tor en userland
+# Iniciar Tor en modo usuario
 python tools/bootstrap_user_tor.py
-# exportar proxy SOCKS para que otras herramientas usen Tor
+# Exportar proxy SOCKS para que otras herramientas usen Tor
 export TOR_SOCKS5='socks5://127.0.0.1:9050'
-# correr leak-test
+# Ejecutar prueba de fugas
 python tools/leak_test.py
 
-# para detener el tor arrancado por este bootstrapper
+# Para detener el Tor iniciado por este bootstrapper
 python tools/bootstrap_user_tor.py --stop
 ```
 
-Notas:
+**Notas:**
 - Puedes fijar la URL de descarga y la suma SHA256 mediante variables de entorno:
-  - `TOR_BOOTSTRAP_URL` : URL completa al tar.xz del Tor Browser bundle
-  - `TOR_BOOTSTRAP_SHA256` : sha256 del archivo; si se proporciona, el instalador lo verificará antes de extraer
-- Logs y PID del Tor arrancado se escriben en `$XDG_DATA_HOME/nidef/tor/` (por defecto `~/.local/share/nidef/tor/`)
+  - `TOR_BOOTSTRAP_URL`: URL completa al tar.xz del Tor Browser Bundle
+  - `TOR_BOOTSTRAP_SHA256`: SHA256 del archivo; si se proporciona, el instalador lo verificará antes de extraer
+- Los logs y el PID del Tor iniciado se escriben en `$XDG_DATA_HOME/nidef/tor/` (por defecto `~/.local/share/nidef/tor/`)
 
-3) Modo --auto (una sola vez pedirá sudo)
+### 3) Modo --auto (una sola vez pedirá sudo)
 
 ```bash
-# instala tor/privoxy y crea un servicio systemd nideflanders
+# Instala tor/privoxy y crea un servicio systemd nideflanders
 bash tools/install_kali.sh --auto
-# ver estado del servicio
+# Ver estado del servicio
 sudo systemctl status nideflanders
 ```
 
-4) Uso del leak-test sin instalar Tor en el sistema
+### 4) Uso del leak-test sin instalar Tor en el sistema
 
-- Si prefieres no instalar nada en el sistema, pero tienes un proxy SOCKS5 disponible (por ejemplo Tor arrancado en otra máquina o localhost por el bootstrapper), exporta la variable `TOR_SOCKS5` y ejecuta:
+Si prefieres no instalar nada en el sistema, pero tienes un proxy SOCKS5 disponible (por ejemplo Tor iniciado en otra máquina o localhost por el bootstrapper), exporta la variable `TOR_SOCKS5` y ejecuta:
 
 ```bash
 export TOR_SOCKS5='socks5://127.0.0.1:9050'
 python tools/leak_test.py
 ```
 
-5) Consejos y seguridad
+### 5) Consejos y seguridad
 
-- Si el bootstrapper descarga binarios, usa `TOR_BOOTSTRAP_SHA256` para verificar integridad.
-- El modo `--auto` modifica servicios del sistema y requiere sudo; úsalo sólo en entornos de confianza (por ejemplo tu Kali personal o una VM).
+- Si el bootstrapper descarga binarios, usa `TOR_BOOTSTRAP_SHA256` para verificar la integridad.
+- El modo `--auto` modifica servicios del sistema y requiere sudo; úsalo solo en entornos de confianza (por ejemplo, tu Kali personal o una máquina virtual).
 
-6) Problemas comunes
-- Si `python3` en tu sistema apunta al instalador de Microsoft Store (Windows), crea un venv con una instalación de Python real o usa WSL/Kali.
+### 6) Problemas comunes
+
+- Si `python3` en tu sistema apunta al instalador de Microsoft Store (Windows), crea un entorno virtual con una instalación real de Python o usa WSL/Kali.
 - Para soporte avanzado (AppArmor, hardening, packaging), revisa `tools/apparmor/` y `SECURITY.md`.
 
 ---
-Documentación generada automáticamente por el asistente de desarrollo para NiDeFlanders.
+Guía generada automáticamente por el asistente de desarrollo para NiDeFlanders.

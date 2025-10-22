@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Leak-test utilities for NiDeFlanders.
+"""Utilidades de prueba de fugas para NiDeFlanders.
 
-Checks for IP and DNS leaks by attempting to route queries through Tor.
+Verifica fugas de IP y DNS intentando enrutar consultas a través de Tor.
 
-Exit codes:
- - 0: all checks passed
- - 1: environment missing (tor/privoxy/torify)
- - 2: leak detected
+Códigos de salida:
+ - 0: todas las pruebas pasaron
+ - 1: entorno incompleto (falta tor/privoxy/torify)
+ - 2: fuga detectada
 """
 import os
 import shutil
@@ -39,21 +39,21 @@ def run_capture(cmd: Tuple[str, ...]) -> Tuple[int, str]:
 
 
 def check_torify_curl() -> bool:
-    # Try to get external IP via torify curl
+    # Intenta obtener la IP externa usando torify curl
     if not has_cmd("torify"):
-        print("torify not found")
+        print("No se encontró torify")
         return False
     code, out = run_capture(("torify", "curl", "-s", "ifconfig.me"))
     if code != 0 or not out:
-        print(f"torify curl failed: code={code} out={out}")
+        print(f"Fallo torify curl: código={code} salida={out}")
         return False
-    print(f"External IP via Tor: {out}")
+    print(f"IP externa vía Tor: {out}")
     return True
 
 
 def check_tor_resolve() -> bool:
     if not has_cmd("tor-resolve"):
-        print("tor-resolve not found")
+        print("No se encontró tor-resolve")
         return False
     code, out = run_capture(("tor-resolve", "ifconfig.me"))
     if code != 0 or not out:
