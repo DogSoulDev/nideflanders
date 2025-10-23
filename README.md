@@ -1,5 +1,11 @@
 
+<p align="center">
+  <img src="assets/nideflanders.png" alt="NiDeFlanders" width="180" />
+</p>
+
 # NiDeFlanders — Inicio rápido
+
+> ⚠️ **Advertencia:** Este proyecto está en desarrollo activo y puede no funcionar correctamente (Octubre de 2025).
 
 NiDeFlanders es un wrapper minimalista para Tor + Privoxy, pensado para usuarios de Kali Linux.
 
